@@ -590,17 +590,17 @@ async def reminder_add_command(update: Update, context: ContextTypes.DEFAULT_TYP
 
 def main() -> None:
     """Запуск бота"""
-    # Создаем Application
+    
     application = Application.builder().token(TOKEN).build()
     
-    # Регистрируем обработчики команд
+    
     application.add_handler(CommandHandler("start", start_command))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("diary", handle_diary))
     application.add_handler(CommandHandler("emergency", handle_emergency))
     application.add_handler(CommandHandler("reminder_add", reminder_add_command))
     
-    # Регистрируем обработчики кнопок
+    
     application.add_handler(MessageHandler(filters.Text(["🩺 Симптомы"]), handle_symptoms))
     application.add_handler(MessageHandler(filters.Text(["💊 Лекарства"]), handle_medicines))
     application.add_handler(MessageHandler(filters.Text(["🚨 Экстренная помощь"]), handle_emergency))
@@ -609,32 +609,29 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.Text(["ℹ️ Помощь"]), help_command))
     application.add_handler(MessageHandler(filters.Text(["⬅️ Назад"]), handle_back))
     
-    # Обработчики симптомов
+   
     symptom_buttons = ["Головная боль", "Температура", "Кашель", "Боль в горле", "Тошнота", "Другое"]
     application.add_handler(MessageHandler(filters.Text(symptom_buttons), handle_symptom_selection))
     
-    # Обработчики экстренной помощи
-    application.add_handler(MessageHandler(filters.Text(["🚑 Вызвать скорую"]), handle_call_ambulance))
-    application.add_handler(MessageHandler(filters.Text(["📞 Телефоны"]), handle_emergency_phones))
-    application.add_handler(MessageHandler(filters.Text(["🆘 Первая помощь"]), handle_first_aid))
-    application.add_handler(MessageHandler(filters.Text(["🔍 Проверить симптомы"]), handle_check_symptoms))
+   
+    application.add_handler(MessageHandler(filters.Text([" Вызвать скорую"]), handle_call_ambulance))
+    application.add_handler(MessageHandler(filters.Text([" Телефоны"]), handle_emergency_phones))
+    application.add_handler(MessageHandler(filters.Text([" Первая помощь"]), handle_first_aid))
+    application.add_handler(MessageHandler(filters.Text([" Проверить симптомы"]), handle_check_symptoms))
     
-    # Обработчики дневника
-    application.add_handler(MessageHandler(filters.Text(["➕ Новая запись"]), handle_new_record))
-    application.add_handler(MessageHandler(filters.Text(["📊 Статистика"]), handle_diary_stats))
-    application.add_handler(MessageHandler(filters.Text(["📋 История"]), handle_diary_history))
     
-    # Обработчик инлайн-кнопок
-    application.add_handler(CallbackQueryHandler(handle_callback_query))
+    application.add_handler(MessageHandler(filters.Text([" Новая запись"]), handle_new_record))
+    application.add_handler(MessageHandler(filters.Text([" Статистика"]), handle_diary_stats))
+    application.add_handler(MessageHandler(filters.Text([" История"]), handle_diary_history))
     
-    # Обработчик текстовых сообщений (должен быть последним)
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
+   
+
     
-    # Запускаем бота
     print("Бот запущен...")
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if name == 'main':
     # Запуск бота
     main()
+
 
