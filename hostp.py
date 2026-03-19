@@ -24,8 +24,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Конфигурация
-API_TOKEN = "8199732388:AAGx4q9OJwuoBKNCc8IdqFF0MIaq7syPoME"
-ADMIN_IDS = {5354171824}  # Ваш Telegram User ID
+API_TOKEN = ""
+ADMIN_IDS = {}  # Ваш Telegram User ID
 
 # Состояния для ConversationHandler
 (
@@ -45,7 +45,7 @@ ADMIN_IDS = {5354171824}  # Ваш Telegram User ID
 ) = range(13)
 
 class Database:
-    def __init__(self, db_path: str = "health_bot.db"):
+    def __init__(self, db_path: str = ".db"):
         self.db_path = db_path
         self.init_db()
 
